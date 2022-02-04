@@ -1,6 +1,8 @@
-import React from "react";
+import { useState } from "react";
 import { Layout, Menu } from "antd";
-
+import logoIMG from "../Logo_SmartBots.jpg";
+import "./BaseLayout.css";
+import { BrowserRouter as Router, Route } from "react-router-dom";
 import {
   MenuUnfoldOutlined,
   MenuFoldOutlined,
@@ -11,20 +13,29 @@ import {
   UploadOutlined,
 } from "@ant-design/icons";
 
-function Navigator({ expand, onExpanded }) {
+import Chats from "../components/Chats";
+import Profiles from "../components/Profiles";
+import Permits from "../components/Permits";
+
+const BaseLayout = () => {
   //collapse and expand the sider
   const { Header, Sider, Content } = Layout;
+  const [expanded, setExpanded] = useState(false);
+
+  const onExpanded = () => setExpanded(!expanded);
 
   return (
     <>
       <Layout style={{ height: "100vh" }}>
-        <Sider trigger={null} collapsible collapsed={expand}>
-          <div className="logo">
-            <img src={1} />
+        <Sider trigger={null} collapsible collapsed={expanded} theme="light">
+          <br></br>
+          <div style={{ display: "flex", justifyContent: "center" }}>
+            <img src={logoIMG} alt="Logo" style={{ maxHeight: "15vh" }} />
           </div>
+          <br></br>
           <Menu
             className="Menu"
-            theme="dark"
+            theme="light"
             mode="inline"
             defaultSelectedKeys={["1"]}
           >
@@ -41,12 +52,10 @@ function Navigator({ expand, onExpanded }) {
         </Sider>
         <Layout className="site-layout">
           <Header className="site-layout-background" style={{ padding: 0 }}>
-            {React.createElement(
-              expand ? MenuUnfoldOutlined : MenuFoldOutlined,
-              {
-                className: "trigger",
-                onClick: onExpanded,
-              }
+            {expanded ? (
+              <MenuUnfoldOutlined className="trigger" onClick={onExpanded} />
+            ) : (
+              <MenuFoldOutlined className="trigger" onClick={onExpanded} />
             )}
           </Header>
           <Content
@@ -56,13 +65,11 @@ function Navigator({ expand, onExpanded }) {
               padding: 24,
               minHeight: 280,
             }}
-          >
-            Content
-          </Content>
+          ></Content>
         </Layout>
-      </Layout>
+      </Layout>{" "}
     </>
   );
-}
+};
 
-export default Navigator;
+export default BaseLayout;
