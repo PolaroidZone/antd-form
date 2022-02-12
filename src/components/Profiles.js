@@ -1,7 +1,8 @@
-import React from 'react';
+import React from "react";
 
 const Profiles = () => {
-  return <div></div>;
+  console.log("Profiles");
+  return <div>Profiles</div>;
 };
 
 export default Profiles;

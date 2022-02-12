@@ -1,7 +1,8 @@
-import React from 'react';
+import React from "react";
 
 const Permits = () => {
-  return <div></div>;
+  console.log("Permits");
+  return <div>Permits</div>;
 };
 
 export default Permits;
