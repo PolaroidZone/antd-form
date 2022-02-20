@@ -18,7 +18,7 @@ import { useAuthState } from "react-firebase-hooks/auth";
 import { useNavigate } from "react-router-dom";
 import "../styles/Dashboard.css";
 import { auth, db, logout } from "../firebase/firebase";
-import { query, collection, getDocs, where } from "firebase/firestore";
+import { query, collection, getDocs, where, doc } from "firebase/firestore";
 
 const BaseLayout = ({ page }) => {
   //collapse and expand the sider
@@ -29,13 +29,16 @@ const BaseLayout = ({ page }) => {
 
   // Authentication
   const [user, loading, error] = useAuthState(auth);
+
   const [name, setName] = useState("");
   const navigate = useNavigate();
   const fetchUserName = async () => {
     try {
       const q = query(collection(db, "users"), where("uid", "==", user?.uid));
       const doc = await getDocs(q);
-      const data = doc.docs[0].data();
+      console.log(doc);
+      // const data = doc.docs[0].data();
+      // console.log(data);
       // setName(data.name);
     } catch (err) {
       console.error(err);
@@ -95,12 +98,15 @@ const BaseLayout = ({ page }) => {
               margin: "24px 16px",
               padding: 24,
               minHeight: 280,
+              display: "flex",
+              overflow: "scroll",
+              backgroundColor: "#FEFEFE",
             }}
           >
             {page}
-            Logged in as
+            {/* Logged in as
             <div>{name}</div>
-            <div>{user?.email}</div>
+            <div>{user?.email}</div> */}
           </Content>
         </Layout>
       </Layout>

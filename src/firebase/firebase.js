@@ -40,6 +40,24 @@ const registerWithEmailAndPassword = async (name, email, password) => {
       name,
       authProvider: "local",
       email,
+      roles: ["client"],
+    });
+  } catch (err) {
+    console.error(err);
+    alert(err.message);
+  }
+};
+
+const registerWithEmailAndPasswordAdmin = async (name, email, password) => {
+  try {
+    const res = await createUserWithEmailAndPassword(auth, email, password);
+    const user = res.user;
+    await addDoc(collection(db, "users"), {
+      uid: user.uid,
+      name,
+      authProvider: "local",
+      email,
+      roles: ["admin"],
     });
   } catch (err) {
     console.error(err);
@@ -66,6 +84,7 @@ export const auth = getAuth();
 export {
   logInWithEmailAndPassword,
   registerWithEmailAndPassword,
+  registerWithEmailAndPasswordAdmin,
   sendPasswordReset,
   logout,
 };

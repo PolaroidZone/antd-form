@@ -55,7 +55,9 @@ function Navigator({ expand, onExpanded }) {
                 }
               )}
             </Header>
-            <Content>
+            <Content
+              
+            >
               <Route exact path="/" component={Login} />
               <Route exact path="/profile" component={Profiles} />
               <Route exact path="/permit" component={Permits} />
